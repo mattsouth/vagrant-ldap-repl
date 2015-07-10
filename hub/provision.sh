@@ -1,5 +1,5 @@
 # test name resolution
-echo -e '192.168.50.50\thub.test.net\n192.168.50.51\tnode1.test.net' | sudo tee --append /etc/hosts
+echo -e '192.168.50.50\thub.test.net\n192.168.50.51\tnode1.test.net\n192.168.50.52\tnode2.test.net' | sudo tee --append /etc/hosts
 # install ldap
 sudo debconf-set-selections /vagrant/dpkg.txt
 sudo apt-get -y install slapd ldap-utils ssl-cert
