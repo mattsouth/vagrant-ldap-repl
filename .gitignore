@@ -1,2 +1,5 @@
 .vagrant
 node*/
+hub/Vagrantfile
+hub/dpkg.txt
+hub/logging.ldif
