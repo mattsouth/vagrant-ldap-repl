@@ -12,12 +12,8 @@ Provision multiple Ubuntu 14.04 VirtualBox VMs with replicated openldap director
 git clone git@github.com:mattsouth/vagrant-xnat-ldap.git
 cd vagrant-xnat-ldap
 ./build.sh
-cd vagrant-xnat-ldap/hub
-vagrant up
-cd ../node1
-vagrant up
 ```
-Once the Vagrant boxes are up and running a replicated ldap directory is available at:
+Once the Vagrant boxes are up a replicated ldap directory is available at:
 * ldap://192.168.50.50 (hub)
 * ldap://192.168.50.51 (node1)
 * ldap://192.168.50.52 (node2)

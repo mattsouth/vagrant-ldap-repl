@@ -33,3 +33,7 @@ sudo chgrp ssl-cert /etc/ssl/private/hub_slapd_key.pem
 sudo chmod g+r /etc/ssl/private/hub_slapd_key.pem
 sudo chmod o-r /etc/ssl/private/hub_slapd_key.pem
 sudo service slapd restart
+
+# make keys available to other nodes
+sudo cp /etc/ssl/certs/cacert.pem /vagrant/.
+sudo cp /etc/ssl/private/cakey.pem /vagrant/.

@@ -1,4 +1,5 @@
 .vagrant
+*.pem
 node*/
 hub/Vagrantfile
 hub/dpkg.txt
