@@ -22,3 +22,9 @@ sudo chmod o-r /etc/ssl/private/${NAME}_slapd_key.pem
 sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f /vagrant/certinfo.ldif
 sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f /vagrant/consumer_sync_tls.ldif
 sudo service slapd restart
+# note: ideally (and as per the instructions) we would have generated slapd_key
+# and slapd_cert on the hub and copied them over with the cacert, but that
+# protocol breaks the build model.  Instead we've copied the cakey and cacert
+# and generated the slapd pems on this server, but we dont need the private key
+# any more so now we'll delete it.
+sudo rm /etc/ssl/private/cakey.pem
