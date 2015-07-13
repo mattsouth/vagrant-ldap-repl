@@ -13,14 +13,16 @@ git clone git@github.com:mattsouth/vagrant-xnat-ldap.git
 cd vagrant-xnat-ldap
 ./build.sh
 ```
-Once the Vagrant boxes are up a replicated ldap directory is available at:
+Once installed, the replicated ldap directory is available at:
 * ldap://192.168.50.50 (hub)
 * ldap://192.168.50.51 (node1)
 * ldap://192.168.50.52 (node2)
 
-The ldap directories are available read-only with anonymous authentication
-To write to the directory you will need to logon with the User DN 'cn=admin,dc=test,dc=net' and password 'admin'
+The directories are available read-only with anonymous authentication.
+To write to the hub directory you will need to logon with the User DN 'cn=admin,dc=test,dc=net' and password 'admin'.  
+The node directories cannot be only be updated by changes to the hub.
 
-see https://help.ubuntu.com/lts/serverguide/openldap-server.html for details of
-setup.  Note that the install transcribed to provision.sh is slightly different,
-as I wasnt able to use the hosts file trick indicated to set the default dn.
+see https://help.ubuntu.com/lts/serverguide/openldap-server.html for more
+detailed instructions.  Note that provision.sh uses a slightly different install
+technique for openldap, as I wasnt able to use the hosts file trick to indicate
+the default directory dn.
