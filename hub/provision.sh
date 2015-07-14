@@ -4,10 +4,10 @@ echo -e '192.168.50.50\thub.test.net\n192.168.50.51\tnode1.test.net\n192.168.50.
 # setup keys
 sudo apt-get -y install gnutls-bin ssl-cert
 sudo sh -c "certtool --generate-privkey > /etc/ssl/private/cakey.pem"
-echo -e 'cn = Test Company\nca\ncert_signing_key' | sudo tee /etc/ssl/ca.info
+echo -e 'cn = Test Organisation\nca\ncert_signing_key' | sudo tee /etc/ssl/ca.info
 sudo certtool --generate-self-signed --load-privkey /etc/ssl/private/cakey.pem --template /etc/ssl/ca.info --outfile /etc/ssl/certs/cacert.pem
 sudo certtool --generate-privkey --bits 1024 --outfile /etc/ssl/private/hub_slapd_key.pem
-echo -e 'organization = Test Company\ncn = hub.test.net\ntls_www_server\nencryption_key\nsigning_key\nexpiration_days = 7' | sudo tee /etc/ssl/hub.info
+echo -e 'organization = Test Organisation\ncn = hub.test.net\ntls_www_server\nencryption_key\nsigning_key\nexpiration_days = 7' | sudo tee /etc/ssl/hub.info
 sudo certtool --generate-certificate --load-privkey /etc/ssl/private/hub_slapd_key.pem --load-ca-certificate /etc/ssl/certs/cacert.pem --load-ca-privkey /etc/ssl/private/cakey.pem --template /etc/ssl/hub.info --outfile /etc/ssl/certs/hub_slapd_cert.pem
 echo -e 'dn: cn=config\nadd: olcTLSCACertificateFile\nolcTLSCACertificateFile: /etc/ssl/certs/cacert.pem\n-\nadd: olcTLSCertificateFile\nolcTLSCertificateFile: /etc/ssl/certs/hub_slapd_cert.pem\n-\nadd: olcTLSCertificateKeyFile\nolcTLSCertificateKeyFile: /etc/ssl/private/hub_slapd_key.pem' | sudo tee /etc/ssl/certinfo.ldif
 
