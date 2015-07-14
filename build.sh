@@ -21,9 +21,9 @@ function createnode {
   cp logging.ldif $1/.
   cp provisionnode.sh $1/provision.sh
   cp replconsumer.ldif $1/.
-  # mv keys to new node directory
-  cp hub/cacert.pem $1/.
-  cp hub/cakey.pem $1/.
+  # # mv keys to new node directory
+  # cp hub/cacert.pem $1/.
+  # cp hub/cakey.pem $1/.
   # configure ldap install for node - see provisionnode.sh
   sed -i -e "s/NAME=change_me/NAME=$1/g" $1/provision.sh
   echo -e "organization = Test Organisation\ncn = $1.test.net\ntls_www_server\nencryption_key\nsigning_key\nexpiration_days = 7" > $1/node.info
@@ -37,6 +37,6 @@ function createnode {
 createnode node1 192.168.50.51
 createnode node2 192.168.50.52
 
-# tidy up
-rm hub/cacert.pem
-rm hub/cakey.pem
+# # tidy up
+# rm hub/cacert.pem
+# rm hub/cakey.pem

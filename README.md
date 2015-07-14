@@ -1,7 +1,8 @@
 vagrant-ldap-repl
 ============
 
-Provision multiple Ubuntu 14.04 VirtualBox VMs with replicated openldap directory, hub -> node{X}
+Provision multiple Ubuntu 14.04 VirtualBox VMs with replicated openldap
+directory, hub <-> node{X}
 
 ### Dependencies:
 * VirtualBox
