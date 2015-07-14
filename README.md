@@ -10,7 +10,7 @@ Provision multiple Ubuntu 14.04 VirtualBox VMs with replicated openldap director
 ### Installation:
 ```bash
 git clone git@github.com:mattsouth/vagrant-ldap-repl.git
-cd vagrant-xnat-ldap
+cd vagrant-ldap-repl
 ./build.sh
 ```
 Once installed, the replicated ldap directory is available at:
