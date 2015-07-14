@@ -7,6 +7,9 @@ echo '** building hub **'
 cp Vagrantfile hub/.
 cp dpkg.txt hub/.
 cp logging.ldif hub/.
+cp replconfig.ldif hub/.
+sed -i -e "s/{SERVERIDS}/olcServerID: 2 ldap:\/\/node1.test.net\nolcServerID: 3 ldap:\/\/node2.test.net/g" hub/replconfig.ldif
+sed -i -e "s/{SERVERREPLS}/olcSyncRepl: rid=002 provider=ldap:\/\/node1.test.net binddn=\"cn=config\" bindmethod=simple credentials=admin searchbase=\"cn=config\" type=refreshAndPersist retry=\"5 5 300 5\" timeout=1\nolcSyncRepl: rid=003 provider=ldap:\/\/node2.test.net binddn=\"cn=config\" bindmethod=simple credentials=admin searchbase=\"cn=config\" type=refreshAndPersist retry=\"5 5 300 5\" timeout=1/g" hub/replconfig.ldif
 cd hub
 vagrant up
 cd ..
@@ -20,10 +23,15 @@ function createnode {
   cp dpkg.txt $1/.
   cp logging.ldif $1/.
   cp provisionnode.sh $1/provision.sh
-  cp replconsumer.ldif $1/.
-  # mv keys to new node directory
-  cp hub/cacert.pem $1/.
-  cp hub/cakey.pem $1/.
+  sed -i -e "s/\/hub.test.net/\/$1.test.net/g" $1/provision.sh
+  cp replconfig.ldif $1/.
+  sed -i -e "N; s/olcServerID: 1\n/olcServerID: $3\n/g; P; D" $1/replconfig.ldif
+  sed -i -e "s/{SERVERIDS}/olcServerID: $3 ldap:\/\/$1.test.net/g" $1/replconfig.ldif
+  sed -i -e "s/{SERVERREPLS}/olcSyncRepl: rid=002 provider=ldap:\/\/$1.test.net binddn=\"cn=config\" bindmethod=simple credentials=admin searchbase=\"cn=config\" type=refreshAndPersist retry=\"5 5 300 5\" timeout=1/g" $1/replconfig.ldif
+
+  # # mv keys to new node directory
+  # cp hub/cacert.pem $1/.
+  # cp hub/cakey.pem $1/.
   # configure ldap install for node - see provisionnode.sh
   sed -i -e "s/NAME=change_me/NAME=$1/g" $1/provision.sh
   echo -e "organization = Test Organisation\ncn = $1.test.net\ntls_www_server\nencryption_key\nsigning_key\nexpiration_days = 7" > $1/node.info
@@ -34,9 +42,9 @@ function createnode {
   cd ..
 }
 
-createnode node1 192.168.50.51
-createnode node2 192.168.50.52
+createnode node1 192.168.50.51 2
+createnode node2 192.168.50.52 3
 
 # tidy up
-rm hub/cacert.pem
-rm hub/cakey.pem
+#rm hub/cacert.pem
+#rm hub/cakey.pem

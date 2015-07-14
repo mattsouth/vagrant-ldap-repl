@@ -4,3 +4,4 @@ node*/
 hub/Vagrantfile
 hub/dpkg.txt
 hub/logging.ldif
+hub/replconfig.ldif
