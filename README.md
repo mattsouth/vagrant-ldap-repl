@@ -20,7 +20,7 @@ Once installed, the replicated ldap directory is available at:
 
 The directories are available read-only with anonymous authentication.
 To write to the hub directory you will need to logon with the User DN 'cn=admin,dc=test,dc=net' and password 'admin'.  
-The node directories are read only and can only be updated via updates pushed from the hub.
+The node directories are read only and can only be updated via deltas pushed from the hub.
 
 see https://help.ubuntu.com/lts/serverguide/openldap-server.html for more
 detailed instructions.  Note that provision.sh uses a slightly different install
