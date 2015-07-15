@@ -8,7 +8,7 @@ sudo apt-get -y install slapd ldap-utils ssl-cert gnutls-bin
 # boost the ldap logging level
 sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/logging.ldif
 # configure replication
-sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/replconfig.ldif
+sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/replmirror.ldif
 sudo sed -i -e 's/ldap:\/\/\//ldap:\/\/hub.test.net/g' /etc/default/slapd
 #sudo service slapd restart
 

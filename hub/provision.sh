@@ -15,14 +15,12 @@ echo -e '192.168.50.50\thub.test.net\n192.168.50.51\tnode1.test.net\n192.168.50.
 sudo debconf-set-selections /vagrant/dpkg.txt
 sudo apt-get -y install slapd ldap-utils ssl-cert
 # load default ldap user
-ldapadd -c -x -H ldap://localhost:389 -D cn=admin,dc=test,dc=net -w admin -f /vagrant/users.ldif
+ldapadd -c -x -H ldap://localhost:389 -D cn=admin,dc=test,dc=net -w adminpassword -f /vagrant/users.ldif
 # boost the ldap logging level
 sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/logging.ldif
 # configure replication
-sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/replconfig.ldif
-#sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/repldit.ldif
+sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/replmirror.ldif
 sudo sed -i -e 's/ldap:\/\/\//ldap:\/\/hub.test.net/g' /etc/default/slapd
-sudo service slapd restart
 
 # # configure tls encryption for ldap
 # sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f /etc/ssl/certinfo.ldif

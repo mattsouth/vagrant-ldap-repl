@@ -12,5 +12,5 @@ rm -r node2
 rm hub/dpkg.txt
 rm hub/logging.ldif
 rm hub/Vagrantfile
-rm hub/replconfig.ldif
+rm hub/replmirror.ldif
 rm -r hub/.vagrant

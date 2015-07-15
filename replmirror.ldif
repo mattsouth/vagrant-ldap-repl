@@ -6,34 +6,21 @@ changetype: modify
 add: olcServerID
 olcServerID: 1
 
-dn: olcDatabase={0}config,cn=config
-changetype: modify
-replace: olcRootPW
-olcRootPW: admin
-
 # load syncprov module (note variation here based on ubuntu openldap instructions)
 dn: cn=module{0},cn=config
 changetype: modify
 add: olcModuleLoad
 olcModuleLoad: syncprov
 
-# so having added a olcServerID in step 1, now you update it.  (weird right? - it's like some kind of alchemy)
-dn: cn=config
-changetype: modify
-replace: olcServerID
-olcServerID: 1 ldap://hub.test.net
-{SERVERIDS}
-
-dn: olcOverlay=syncprov,olcDatabase={0}config,cn=config
+dn: olcOverlay=syncprov,olcDatabase={1}hdb,cn=config
 changetype: add
 objectClass: olcOverlayConfig
 objectClass: olcSyncProvConfig
 olcOverlay: syncprov
 
-dn: olcDatabase={0}config,cn=config
+dn: olcDatabase={1}hdb,cn=config
 changetype: modify
 add: olcSyncRepl
-olcSyncRepl: rid=001 provider=ldap://hub.test.net binddn="cn=config" bindmethod=simple credentials=admin searchbase="cn=config" type=refreshAndPersist retry="5 5 300 5" timeout=1
 {SERVERREPLS}
 -
 add: olcMirrorMode
