@@ -1,10 +1,20 @@
-# see http://www.openldap.org/doc/admin24/replication.html#N-Way Multi-Master
-# this script sets up master-master replication of the config directory
+# see http://www.openldap.org/doc/admin24/replication.html#MirrorMode
+# this script sets up mirror replication of the main DIT
+
 # set server id
 dn: cn=config
 changetype: modify
 add: olcServerID
 olcServerID: 1
+
+# Add indexes to the frontend db.
+dn: olcDatabase={1}hdb,cn=config
+changetype: modify
+add: olcDbIndex
+olcDbIndex: entryCSN eq
+-
+add: olcDbIndex
+olcDbIndex: entryUUID eq
 
 # load syncprov module (note variation here based on ubuntu openldap instructions)
 dn: cn=module{0},cn=config

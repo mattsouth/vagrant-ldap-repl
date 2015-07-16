@@ -5,3 +5,4 @@ hub/Vagrantfile
 hub/dpkg.txt
 hub/logging.ldif
 hub/replmirror.ldif
+hub/certinfo.ldif

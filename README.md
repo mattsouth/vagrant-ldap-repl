@@ -1,7 +1,7 @@
 vagrant-ldap-repl
 ============
 
-Provision multiple Ubuntu 14.04 VirtualBox VMs with mirror replicated openldap
+Provision multiple Ubuntu 14.04 VirtualBox VMs with a replicated (mirrored with encryption) openldap
 directory in a hub and spoke configuration, i.e. hub <-> node{1,2}
 
 ### Dependencies:
@@ -20,7 +20,13 @@ Once installed, the replicated ldap directory is available at:
 * ldap://192.168.50.52 (node2)
 
 The directories are available read-only with anonymous authentication.
-To write to any directory you will need to logon with the User DN 'cn=admin,dc=test,dc=net' and password 'adminpassword'.  
+To write to any directory you will need to logon with the User DN 'cn=admin,dc=test,dc=net' and password 'adminpassword'.
+
+### Add a new node
+
+TODO
+
+### Notes  
 
 see https://help.ubuntu.com/lts/serverguide/openldap-server.html for more
 detailed instructions on the original setup and
