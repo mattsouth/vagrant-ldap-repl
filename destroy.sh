@@ -14,9 +14,6 @@ cd hub
 vagrant destroy -f
 cd ..
 rm hub/dpkg.txt
-rm hub/logging.ldif
 rm hub/Vagrantfile
-rm hub/replmirror.ldif
-rm hub/certinfo.ldif
+rm hub/*.ldif
 rm hub/*.pem
-rm hub/addnode*.ldif

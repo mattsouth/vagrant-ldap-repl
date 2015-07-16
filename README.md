@@ -19,22 +19,27 @@ Once installed, the replicated ldap directory is available at:
 * ldap://192.168.50.51 (node1)
 * ldap://192.168.50.52 (node2)
 
-The directories are available read-only with anonymous authentication.
 To write to any directory you will need to logon with the User DN 'cn=admin,dc=test,dc=net' and password 'adminpassword'.
+Note that to use encrypted authentication, you will need to have pointed your
+client to the CA certificate (/etc/ssl/certs/cacert.pem).  For ldapsearch
+this is done in /etc/ldap/ldap.conf
 
-### Testing:
+To test the replicated directory:
+1. log on to a node
+2. check that node has a People ou with a person, John
+3. Add another person
+4. log on to the other node
+5. check that node has a People ou with John and your new person
 
-TODO: how has this been tested
+### Add a new node:
 
-### Add a new node
-
-To add a third node, you can run the build script again
+To add a third node, you can run the build script again with a parameter:
 ```bash
 ./build.sh 3
 ```
 Note this only works for values 3 and 4 and doesnt check whether it's overwriting an existing node.
 
-### Cleaning up
+### Clear up afterwards:
 ```bash
 ./destroy.sh
 ```

@@ -12,12 +12,12 @@ function createnode {
   cp Vagrantfile $1/.
   sed -i -e "s/192.168.50.50/$2/g" $1/Vagrantfile
   cp dpkg.txt $1/.
-  cp logging.ldif $1/.
   cp provisionnode.sh $1/provision.sh
   sed -i -e "s/\/hub.test.net/\/$1.test.net/g" $1/provision.sh
-  cp replmirror.ldif $1/.
+  cp *.ldif $1/.
   sed -i -e "N; s/olcServerID: 1\n/olcServerID: $3\n/g; P; D" $1/replmirror.ldif
   sed -i -e "s/{SERVERREPLS}/olcSyncRepl: rid=001 provider=ldap:\/\/hub.test.net binddn=\"cn=admin,dc=test,dc=net\" bindmethod=simple credentials=adminpassword searchbase=\"dc=test,dc=net\" type=refreshAndPersist retry=\"60 +\" starttls=critical tls_reqcert=demand/g" $1/replmirror.ldif
+  rm $1/users.ldif # not used
 
   # mv keys to new node directory
   cp hub/cacert.pem $1/.
@@ -37,8 +37,7 @@ then
   echo '** building hub **'
   cp Vagrantfile hub/.
   cp dpkg.txt hub/.
-  cp logging.ldif hub/.
-  cp replmirror.ldif hub/.
+  cp *.ldif hub/.
   sed -i -e "s/{SERVERREPLS}/olcSyncRepl: rid=001 provider=ldap:\/\/node1.test.net bindmethod=simple binddn=\"cn=admin,dc=test,dc=net\" credentials=adminpassword searchbase=\"dc=test,dc=net\" type=refreshAndPersist retry=\"60 +\" starttls=critical tls_reqcert=demand\nolcSyncRepl: rid=002 provider=ldap:\/\/node2.test.net binddn=\"cn=admin,dc=test,dc=net\" bindmethod=simple credentials=adminpassword searchbase=\"dc=test,dc=net\" type=refreshAndPersist retry=\"60 +\" starttls=critical tls_reqcert=demand/g" hub/replmirror.ldif
   echo -e "dn: cn=config\nadd: olcTLSCACertificateFile\nolcTLSCACertificateFile: /etc/ssl/certs/cacert.pem\n-\nadd: olcTLSCertificateFile\nolcTLSCertificateFile: /etc/ssl/certs/hub_slapd_cert.pem\n-\nadd: olcTLSCertificateKeyFile\nolcTLSCertificateKeyFile: /etc/ssl/private/hub_slapd_key.pem" > hub/certinfo.ldif
   cd hub

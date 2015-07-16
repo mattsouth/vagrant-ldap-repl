@@ -1,0 +1,7 @@
+dn: olcDatabase={-1}frontend,cn=config
+add: olcRequires
+olcRequires: authc
+
+dn: olcDatabase={1}hdb,cn=config
+add: olcRequires
+olcRequires: authc
