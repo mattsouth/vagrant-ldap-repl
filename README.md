@@ -22,10 +22,22 @@ Once installed, the replicated ldap directory is available at:
 The directories are available read-only with anonymous authentication.
 To write to any directory you will need to logon with the User DN 'cn=admin,dc=test,dc=net' and password 'adminpassword'.
 
+### Testing:
+
+TODO: how has this been tested
+
 ### Add a new node
 
-TODO
+To add a third node, you can run the build script again
+```bash
+./build.sh 3
+```
+Note this only works for values 3 and 4 and doesnt check whether it's overwriting an existing node.
 
+### Cleaning up
+```bash
+./destroy.sh
+```
 ### Notes  
 
 see https://help.ubuntu.com/lts/serverguide/openldap-server.html for more

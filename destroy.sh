@@ -1,16 +1,22 @@
 #!/bin/bash
 # this script tears down vagrant VMs and cleans up the built files
-cd node1
-vagrant destroy -f
-cd ../node2
-vagrant destroy -f
-cd ../hub
+for dir in $(ls -d */)
+do
+  if [[ $dir == node* ]]
+  then
+    cd $dir
+    vagrant destroy -f
+    cd ..
+    rm -r $dir
+  fi
+done
+cd hub
 vagrant destroy -f
 cd ..
-rm -r node1
-rm -r node2
 rm hub/dpkg.txt
 rm hub/logging.ldif
 rm hub/Vagrantfile
 rm hub/replmirror.ldif
-rm -r hub/.vagrant
+rm hub/certinfo.ldif
+rm hub/*.pem
+rm hub/addnode*.ldif
