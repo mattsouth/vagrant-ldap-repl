@@ -1,8 +1,8 @@
 #!/bin/bash
-# This script without an arguments builds three VMs (hub, node1, node2) that
+# This script, run without arguments, builds three VMs (hub, node1, node2) that
 # have replicated ldap directories with encrypted authentication and replication
 # If you add an argument, e.g. 3 it will add a new node, i.e. node3
-# Note that there is no testing of valid indices here because the hub only
+# Note that there is no testing of valid indices and because the hub only
 # has hosts entries up to node4, only values 3 and 4 work.
 
 # build nodes

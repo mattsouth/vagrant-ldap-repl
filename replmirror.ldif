@@ -1,5 +1,6 @@
 # see http://www.openldap.org/doc/admin24/replication.html#MirrorMode
-# this script sets up mirror replication of the main DIT
+# this script sets up mirror replication of the main DIT and is
+# customised for each node during the build process.
 
 # set server id
 dn: cn=config
