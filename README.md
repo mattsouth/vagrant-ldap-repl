@@ -25,11 +25,12 @@ client to the CA certificate (/etc/ssl/certs/cacert.pem).  For ldapsearch
 this is done in /etc/ldap/ldap.conf
 
 To test the replicated directory:
+
 1. log on to a node
-2. check that node has a People ou with a person, John
+2. check that node has a People ou with a person, John (i.e. that replication from the hub was successful)
 3. Add another person
 4. log on to the other node
-5. check that node has a People ou with John and your new person
+5. check that node has a People ou with John and your new person (i.e. that the hub and then the node was updated)
 
 ### Add a new node:
 
