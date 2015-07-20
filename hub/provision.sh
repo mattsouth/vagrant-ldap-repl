@@ -12,7 +12,7 @@ sudo certtool --generate-certificate --load-privkey /etc/ssl/private/hub_slapd_k
 
 # install ldap
 sudo debconf-set-selections /vagrant/dpkg.txt
-sudo apt-get -y install slapd ldap-utils ssl-cert
+sudo apt-get -y install slapd ldap-utils
 sudo adduser openldap ssl-cert
 sudo chgrp ssl-cert /etc/ssl/private/hub_slapd_key.pem
 sudo chmod g+r /etc/ssl/private/hub_slapd_key.pem
@@ -22,12 +22,13 @@ sudo chmod o-r /etc/ssl/private/hub_slapd_key.pem
 ldapadd -c -x -H ldap://localhost:389 -D cn=admin,dc=test,dc=net -w adminpassword -f /vagrant/users.ldif
 # boost the ldap logging level
 sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/logging.ldif
-# remove anonymous access
-sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/removeanon.ldif
 # configure tls encryption for ldap
 sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f /vagrant/certinfo.ldif
 sudo sed -i -e 's/ldap:\/\/\//ldap:\/\/hub.test.net/g' /etc/default/slapd
 sudo service slapd restart
+# remove anonymous access
+sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/removeanon.ldif
+
 # configure replication
 sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/replmirror.ldif
 
