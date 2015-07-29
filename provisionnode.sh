@@ -23,7 +23,7 @@ sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/logging.ldif
 sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/removeanon.ldif
 # configure tls encryption for ldap
 sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f /vagrant/certinfo.ldif
-sudo sed -i -e 's/ldap:\/\/\//ldap:\/\/hub.test.net/g' /etc/default/slapd
+sudo sed -i -e "s/ldap:\/\/\//ldap:\/\/${NAME}.test.net ldaps:\/\/${NAME}.test.net/g" /etc/default/slapd
 sudo service slapd restart
 # configure replication
 sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /vagrant/replmirror.ldif
