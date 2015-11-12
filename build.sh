@@ -2,6 +2,10 @@
 # This script builds three VMs (hub, node1, node2) that have replicated ldap
 # directories with encrypted authentication and replication
 
+# create keys
+certtool --generate-privkey > ./cakey.pem
+certtool --generate-self-signed --load-privkey cakey.pem --template ca.info --outfile cacert.pem
+
 # build hub
 echo '** building hub **'
 cp Vagrantfile hub/.
